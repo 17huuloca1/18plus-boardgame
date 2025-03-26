@@ -1,0 +1,258 @@
+/* 📌 Toàn bộ giao diện */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffccff, #fcd6fc);
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* 📌 Bảng nhập tên */
+#nameInputScreen {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    margin: 50px auto;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+}
+
+
+/* Hiệu ứng đổi lượt */
+.turn-animation {
+    animation: pulse 1s ease-in-out, shake 0.5s ease-in-out;
+}
+
+/* Hiệu ứng chữ đổi màu */
+.player-name {
+    font-weight: bold;
+    background-image: linear-gradient(45deg, #ff0000, #ff7300, #ffd700, #32cd32, #1e90ff, #9400d3);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: colorChange 3s infinite linear;
+}
+
+/* Hiệu ứng nhấp nháy */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Hiệu ứng rung nhẹ */
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-3px);
+    }
+
+    50% {
+        transform: translateX(3px);
+    }
+
+    75% {
+        transform: translateX(-3px);
+    }
+}
+
+/* Hiệu ứng màu gradient chạy liên tục */
+@keyframes colorChange {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    background: #ffcc00;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff9900;
+}
+
+/* 📌 Lượt chơi */
+#turnIndicator {
+    font-size: 22px;
+    margin: 20px 0;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px black;
+}
+
+/* 📌 Căn giữa bàn chơi */
+/* 🌟 Bàn chơi - Hiển thị theo hàng ngang với khoảng cách hợp lý */
+#gameBoard {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    /* 🔥 Tăng khoảng cách giữa các thẻ */
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+/* 📌 Thẻ bài */
+.card {
+    width: 130px;
+    height: 170px;
+    position: relative;
+    perspective: 1000px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+/* 📌 Responsive cho màn hình nhỏ */
+@media screen and (max-width: 768px) {
+    #gameBoard {
+        grid-template-columns: repeat(4, 1fr);
+        /* 🔥 Chia thành 3 cột khi màn hình nhỏ */
+        gap: 15px;
+        padding: 10px;
+    }
+
+    .card {
+        width: 100px;
+        /* 🔥 Giảm kích thước thẻ bài trên điện thoại */
+        height: 140px;
+        margin: 5px;
+    }
+
+    #turnIndicator {
+        font-size: 8px;
+        /* 🔥 Giảm kích thước chữ */
+        text-align: center;
+    }
+}
+
+/* 📌 Responsive cho màn hình rất nhỏ (dưới 480px) */
+@media screen and (max-width: 480px) {
+    #gameBoard {
+        grid-template-columns: repeat(3, 1fr);
+        /* 🔥 Chia thành 2 cột cho điện thoại nhỏ */
+        gap: 25px;
+    }
+
+    .card {
+        width: 100px;
+        height: 140px;
+    }
+
+    #turnIndicator {
+        font-size: 4px;
+    }
+}
+
+
+/* Khi màn hình rộng hơn cao (xoay ngang) */
+@media screen and (max-aspect-ratio: 16/9) {
+    .game-board {
+        grid-template-columns: repeat(5, 1fr);
+        /* 6 cột khi xoay ngang */
+        gap: 8px;
+    }
+
+    .card {
+        width: 90px;
+        height: 130px;
+    }
+
+    .card .card-back {
+        font-size: 12px;
+        padding: 6px;
+    }
+}
+
+
+/* 📌 Hiệu ứng xoay giữ nguyên vị trí */
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+}
+
+/* 📌 Mặt trước & sau của thẻ */
+.card-front,
+.card-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 📌 Mặt trước của thẻ */
+.card-front {
+    background: url('labai.png') center/cover no-repeat;
+    /* 🔥 Thay 'card-back.jpg' bằng đường dẫn ảnh của bạn */
+    color: transparent;
+    /* 🔥 Ẩn chữ trên mặt trước */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+/* 📌 Mặt sau của thẻ (hiển thị thử thách) */
+.card-back {
+    background: linear-gradient(45deg, #8af7f7, #61a5a5);
+    /* 🔥 Gradient màu cam - đỏ */
+    color: white;
+    transform: rotateY(180deg);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+/* 📌 Khi lật thẻ */
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}

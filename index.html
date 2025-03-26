@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board Game 18+</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Bảng nhập tên -->
+    <div id="nameInputScreen">
+        <h2>Nhập tên người chơi</h2>
+        <input type="text" class="player-name" id="player1" placeholder="Tên người chơi 1">
+        <input type="text" class="player-name" id="player2" placeholder="Tên người chơi 2">
+        <button onclick="startGame()">Bắt đầu</button>
+    </div>
+
+    <!-- Hiển thị lượt chơi -->
+    <h2 id="turnIndicator" style="display: none;"></h2>
+
+    <!-- Bàn chơi -->
+    <div id="gameBoard" class="game-board" style="display: none;">
+        <!-- 24 thẻ thử thách -->
+        <script>
+            for (let i = 0; i < 24; i++) {
+                document.write(`
+                    <div class="card" onclick="flipCard(this, ${i})">
+                        <div class="card-inner">
+                            <div class="card-front"></div>
+                            <div class="card-back"></div>
+                        </div>
+                    </div>
+                `);
+            }
+        </script>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
